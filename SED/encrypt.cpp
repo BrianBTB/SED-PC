@@ -124,21 +124,21 @@ int Savedata::Encrypt(const char *plaintext_filename,
     /* Open plaintext and param.sfo files and get size */
 
     if (fopen_getsize(plaintext_filename, &in, &len) < 0) {
-        retval = -1;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
     //fopen_getsize(paramsfo_filename, &sfo, &tmp);
 
     if (fopen_getsize(paramsfo_filename, &sfo, &tmp) < 0) {
-        retval = -2;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
     /* Verify size of param.sfo; all known saves use this size */
 
     if (tmp != 0x1330) {
-        retval = -3;
+        retval = INVALID_SFO_ERROR;
         goto out;
     }
 
@@ -149,17 +149,17 @@ int Savedata::Encrypt(const char *plaintext_filename,
 
     if ((data =
                 (unsigned char *) memalign(0x10, aligned_len + 0x10)) == NULL) {
-        retval = -4;
+        retval = MEMORY_ERROR;
         goto out;
     }
 
     if ((cryptkey = (unsigned char *) memalign(0x10, 0x10)) == NULL) {
-        retval = -5;
+        retval = MEMORY_ERROR;
         goto out;
     }
 
     if ((hash = (unsigned char *) memalign(0x10, 0x10)) == NULL) {
-        retval = -6;
+        retval = MEMORY_ERROR;
         goto out;
     }
 
@@ -167,12 +167,12 @@ int Savedata::Encrypt(const char *plaintext_filename,
 
     memset(data + len, 0, aligned_len - len);
     if (fread(data, 1, len, in) != len) {
-        retval = -7;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
     if (fread(paramsfo, 1, 0x1330, sfo) != 0x1330) {
-        retval = -8;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
@@ -187,7 +187,7 @@ int Savedata::Encrypt(const char *plaintext_filename,
                                 &len, &aligned_len,
                                 hash,
                                 gamekey ? cryptkey : NULL)) < 0) {
-        retval -= 1000;
+        retval += ENCRYPT_ERROR;
         goto out;
     }
 
@@ -196,19 +196,19 @@ int Savedata::Encrypt(const char *plaintext_filename,
     if ((retval = update_hashes(paramsfo, 0x1330,
                                 data_filename, hash,
                                 gamekey ? 3 : 1)) < 0) {
-        retval = -2000;
+        retval += HASH_ERROR;
         goto out;
     }
 
     /* Write the data to the file.  encrypt_data has already set len. */
 
     if ((out = fopen(encrypted_filename, "wb")) == NULL) {
-        retval = -9;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
     if (fwrite(data, 1, len, out) != len) {
-        retval = -10;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
@@ -216,12 +216,12 @@ int Savedata::Encrypt(const char *plaintext_filename,
 
     fclose(sfo);
     if ((sfo = fopen(paramsfo_filename, "wb")) == NULL) {
-        retval = -11;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
     if (fwrite(paramsfo, 1, 0x1330, sfo) != 0x1330) {
-        retval = -12;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
