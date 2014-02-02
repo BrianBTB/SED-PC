@@ -9,9 +9,9 @@ void* memalign(size_t size, size_t alignment)
 #endif
 
 /* Do the actual hardware decryption.
-   mode is 3 for saves with a cryptkey, or 1 otherwise
-   data, dataLen, and cryptkey must be multiples of 0x10.
-   cryptkey is NULL if mode == 1.
+mode is 3 for saves with a cryptkey, or 1 otherwise
+data, dataLen, and cryptkey must be multiples of 0x10.
+cryptkey is NULL if mode == 1.
 */
 int decrypt_data(unsigned int mode,
                  unsigned char *data,
@@ -85,7 +85,7 @@ int Savedata::Decrypt(const char *decrypted_filename,
     /* Open file and get size */
 
     if ((in = fopen(encrypted_filename, "rb")) == NULL) {
-        retval = -1;
+        retval = FILE_IO_ERROR;
         goto out;
     }
 
@@ -94,7 +94,7 @@ int Savedata::Decrypt(const char *decrypted_filename,
     fseek(in, 0, SEEK_SET);
 
     if (len <= 0) {
-        retval = -2;
+        retval = FILE_IO_ERROR;
         goto out1;
     }
 
@@ -103,12 +103,12 @@ int Savedata::Decrypt(const char *decrypted_filename,
     aligned_len = align16(len);
 
     if ((data = (unsigned char *) memalign(0x10, aligned_len)) == NULL) {
-        retval = -3;
+        retval = MEMORY_ERROR;
         goto out1;
     }
 
     if ((cryptkey = (unsigned char *) memalign(0x10, 0x10)) == NULL) {
-        retval = -4;
+        retval = MEMORY_ERROR;
         goto out2;
     }
 
@@ -120,7 +120,7 @@ int Savedata::Decrypt(const char *decrypted_filename,
 
     memset(data + len, 0, aligned_len - len);
     if (fread(data, 1, len, in) != len) {
-        retval = -5;
+        retval = FILE_IO_ERROR;
         goto out3;
     }
 
@@ -129,19 +129,19 @@ int Savedata::Decrypt(const char *decrypted_filename,
     if ((retval = decrypt_data( gamekey ? (6 >= 4 ? 5 : 3) : 1, // 5 for sdk >= 4, else 3
                                 data, &len, &aligned_len,
                                 gamekey ? cryptkey : NULL)) < 0) {
-        retval -= 100;
+        retval += DECRYPT_ERROR;
         goto out3;
     }
 
     /* Write the data out.  decrypt_data has set len correctly. */
 
     if ((out = fopen(decrypted_filename, "wb")) == NULL) {
-        retval = -6;
+        retval = FILE_IO_ERROR;
         goto out3;
     }
 
     if (fwrite(data, 1, len, out) != len) {
-        retval = -7;
+        retval = FILE_IO_ERROR;
         goto out4;
     }
 

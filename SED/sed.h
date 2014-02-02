@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sceChnnlsv.h"
+#include "ErrorCodes.h"
 #include <malloc.h>
 #include <stdio.h>
 

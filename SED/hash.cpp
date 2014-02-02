@@ -42,8 +42,7 @@ int update_hashes(unsigned char *data,
     /* Locate SAVEDATA_PARAM section in the param.sfo. */
     if ((ret = find_psf_section("SAVEDATA_PARAMS", data, 0x1330,
                                 &savedata_params, &paramsLen)) < 0) {
-        ret = -100;
-        return ret;
+        return ret - 100;
     }
 
     /* Locate the pointer for this DATA.BIN equivalent */
