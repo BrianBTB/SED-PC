@@ -74,10 +74,14 @@ int Encrypter(char *argv[])
     //ARGV 2 = Path to PARAM.SFO
     //ARGV 3 = Output file name
     //ARGV 4 = Game key file
-    char fname[30] = "", ext[10] = "";
+    char fname[30] = "";
+#ifdef _WIN32
+    char ext[10] = "";
     _splitpath(argv[4], NULL, NULL, fname, ext);
     strcat(fname, ext);
-
+#else
+    strcpy(fname, basename(argv[4]));
+#endif
     return Savedata::Encrypt(argv[2], argv[4],  fname, argv[3], gameKey);
 }
 

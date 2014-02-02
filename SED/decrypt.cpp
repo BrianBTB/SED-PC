@@ -1,13 +1,6 @@
 #include "sed.h"
 
 
-#ifdef _WIN32
-void* memalign(size_t size, size_t alignment)
-{
-    return _aligned_malloc(alignment, size);
-}
-#endif
-
 /* Do the actual hardware decryption.
 mode is 3 for saves with a cryptkey, or 1 otherwise
 data, dataLen, and cryptkey must be multiples of 0x10.
@@ -15,7 +8,7 @@ cryptkey is NULL if mode == 1.
 */
 int decrypt_data(unsigned int mode,
                  unsigned char *data,
-                 int *dataLen,
+                 size_t *dataLen,
                  int *alignedLen,
                  unsigned char *cryptkey)
 {
@@ -78,7 +71,8 @@ int Savedata::Decrypt(const char *decrypted_filename,
                       const unsigned char *gamekey)
 {
     FILE *in, *out;
-    int len, aligned_len;
+    size_t len;
+    int aligned_len;
     unsigned char *data, *cryptkey;
     int retval;
 
@@ -102,12 +96,12 @@ int Savedata::Decrypt(const char *decrypted_filename,
 
     aligned_len = align16(len);
 
-    if ((data = (unsigned char *) memalign(0x10, aligned_len)) == NULL) {
+    if ((data = (unsigned char *) aligned_alloc(0x10, aligned_len)) == NULL) {
         retval = MEMORY_ERROR;
         goto out1;
     }
 
-    if ((cryptkey = (unsigned char *) memalign(0x10, 0x10)) == NULL) {
+    if ((cryptkey = (unsigned char *) aligned_alloc(0x10, 0x10)) == NULL) {
         retval = MEMORY_ERROR;
         goto out2;
     }
@@ -150,9 +144,9 @@ int Savedata::Decrypt(const char *decrypted_filename,
 out4:
     fclose(out);
 out3:
-    _aligned_free(cryptkey);
+    aligned_free(cryptkey);
 out2:
-    _aligned_free(data);
+    aligned_free(data);
 out1:
     fclose(in);
 out:

@@ -23,7 +23,7 @@ static inline int align16(unsigned int v)
     return ((v + 0xF) >> 4) << 4;
 }
 
-int fopen_getsize(const char *filename, FILE **fd, int *size)
+int fopen_getsize(const char *filename, FILE **fd, size_t *size)
 {
     if ((*fd = fopen(filename, "rb")) == NULL) {
         return -1;
@@ -48,7 +48,7 @@ cryptkey is NULL if mode == 1.
 */
 int encrypt_data(unsigned int mode,
                  unsigned char *data,
-                 int *dataLen,
+                 size_t *dataLen,
                  int *alignedLen,
                  unsigned char *hash,
                  unsigned char *cryptkey)
@@ -118,7 +118,8 @@ int Savedata::Encrypt(const char *plaintext_filename,
     FILE *in = NULL, *out = NULL, *sfo = NULL;
     unsigned char *data = NULL, *cryptkey = NULL, *hash = NULL;
     unsigned char paramsfo[0x1330];
-    int len, aligned_len, tmp;
+    size_t len, tmp;
+    int aligned_len;
     int retval = 0;
 
     /* Open plaintext and param.sfo files and get size */
@@ -148,17 +149,17 @@ int Savedata::Encrypt(const char *plaintext_filename,
     aligned_len = align16(len);
 
     if ((data =
-                (unsigned char *) memalign(0x10, aligned_len + 0x10)) == NULL) {
+                (unsigned char *) aligned_alloc(0x10, aligned_len + 0x10)) == NULL) {
         retval = MEMORY_ERROR;
         goto out;
     }
 
-    if ((cryptkey = (unsigned char *) memalign(0x10, 0x10)) == NULL) {
+    if ((cryptkey = (unsigned char *) aligned_alloc(0x10, 0x10)) == NULL) {
         retval = MEMORY_ERROR;
         goto out;
     }
 
-    if ((hash = (unsigned char *) memalign(0x10, 0x10)) == NULL) {
+    if ((hash = (unsigned char *) aligned_alloc(0x10, 0x10)) == NULL) {
         retval = MEMORY_ERROR;
         goto out;
     }
@@ -234,13 +235,13 @@ out:
         fclose(out);
     }
     if(hash) {
-        _aligned_free(hash);
+        aligned_free(hash);
     }
     if(cryptkey) {
-        _aligned_free(cryptkey);
+        aligned_free(cryptkey);
     }
     if(data) {
-        _aligned_free(data);
+        aligned_free(data);
     }
     if(sfo) {
         fclose(sfo);

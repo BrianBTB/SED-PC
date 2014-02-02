@@ -18,14 +18,8 @@
 #include <malloc.h>
 #include <string.h>
 #include "sceChnnlsv.h"
+#include "sed.h"
 
-
-#ifdef _WIN32
-int strncasecmp(const char *strA, const char *strB, size_t size)
-{
-    return _strnicmp(strA, strB, size);
-}
-#endif
 
 /* Find to the named section in the PSF file, and return an
    absolute pointer to it and the section size. */
@@ -89,7 +83,7 @@ int find_psf_section(const char *name,
         if ((nameLoc < dataLen) && (sectCurLen < dataLen)
                 && (sectBufLen < dataLen) && (sectBufLoc < dataLen)) {
             /* Check if this is the section we want */
-            if (!_stricmp((char *)&data[strLoc + nameLoc], name)) {	//NOTE: _stricmp is windows only?
+            if (!strcasecmp((char *)&data[strLoc + nameLoc], name)) {
                 /* Update the location and size */
                 *location = &data[headLen + sectBufLoc];
                 *size = sectBufLen;

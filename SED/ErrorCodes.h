@@ -1,7 +1,7 @@
 #pragma once
 
 //Uncomment for Dogenation!
-//#define DOGE
+#define DOGE
 
 #define INVALID_ARGS 1
 #define FILE_IO_ERROR -1
