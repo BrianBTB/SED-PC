@@ -16,20 +16,18 @@
 #define pwuAESContextBuffer rijndael_ctx
 
 /*  The structure for key information */
-typedef struct 
-{
-	int	enc_only;		/* context contains only encrypt schedule */
-	int	Nr;			/* key-length-dependent number of rounds */
-	u32	ek[4*(AES_MAXROUNDS + 1)];	/* encrypt key schedule */
-	u32	dk[4*(AES_MAXROUNDS + 1)];	/* decrypt key schedule */
+typedef struct {
+    int	enc_only;		/* context contains only encrypt schedule */
+    int	Nr;			/* key-length-dependent number of rounds */
+    u32	ek[4*(AES_MAXROUNDS + 1)];	/* encrypt key schedule */
+    u32	dk[4*(AES_MAXROUNDS + 1)];	/* decrypt key schedule */
 } rijndael_ctx;
 
-typedef struct 
-{
-	int	enc_only;		/* context contains only encrypt schedule */
-	int	Nr;			/* key-length-dependent number of rounds */
-	u32	ek[4*(AES_MAXROUNDS + 1)];	/* encrypt key schedule */
-	u32	dk[4*(AES_MAXROUNDS + 1)];	/* decrypt key schedule */
+typedef struct {
+    int	enc_only;		/* context contains only encrypt schedule */
+    int	Nr;			/* key-length-dependent number of rounds */
+    u32	ek[4*(AES_MAXROUNDS + 1)];	/* encrypt key schedule */
+    u32	dk[4*(AES_MAXROUNDS + 1)];	/* decrypt key schedule */
 } AES_ctx;
 
 int rijndael_set_key(rijndael_ctx *, const u8 *, int);
@@ -47,6 +45,6 @@ void AES_CMAC(AES_ctx *ctx, unsigned char *input, int length, unsigned char *mac
 int	rijndaelKeySetupEnc(unsigned int [], const unsigned char [], int);
 int	rijndaelKeySetupDec(unsigned int [], const unsigned char [], int);
 void rijndaelEncrypt(const unsigned int [], int, const unsigned char [],
-	    unsigned char []);
+                     unsigned char []);
 
 #endif /* __RIJNDAEL_H */

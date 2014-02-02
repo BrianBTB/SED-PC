@@ -16,14 +16,14 @@
 /* Find the named section in the PSF file, and return an
    absolute pointer to it and the section size. */
 int find_psf_section(const char *name,
-		     unsigned char *data,
-		     int dataLen,
-		     unsigned char **location,
-		     int *size);
+                     unsigned char *data,
+                     int dataLen,
+                     unsigned char **location,
+                     int *size);
 
 /* Find the named file inside the FILE_LIST, and return
    an absolute pointer to it. */
 int find_psf_datafile(const char *name,
-		      unsigned char *filelist,
-		      int size,
-		      unsigned char **location);
+                      unsigned char *filelist,
+                      int size,
+                      unsigned char **location);

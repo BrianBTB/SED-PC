@@ -11,8 +11,8 @@ typedef unsigned int UINT4;
 typedef unsigned char BYTE;
 
 #ifndef TRUE
-  #define FALSE	0
-  #define TRUE	( !FALSE )
+#define FALSE	0
+#define TRUE	( !FALSE )
 #endif /* TRUE */
 
 #endif /* end _GLOBAL_H_ */
@@ -26,12 +26,11 @@ typedef unsigned char BYTE;
 
 /* The structure for storing SHS info */
 
-typedef struct 
-{
-	UINT4 digest[ 5 ];            /* Message digest */
-	UINT4 countLo, countHi;       /* 64-bit bit count */
-	UINT4 data[ 16 ];             /* SHS data buffer */
-	int Endianness;
+typedef struct {
+    UINT4 digest[ 5 ];            /* Message digest */
+    UINT4 countLo, countHi;       /* 64-bit bit count */
+    UINT4 data[ 16 ];             /* SHS data buffer */
+    int Endianness;
 } SHA_CTX;
 
 /* Message digest functions */

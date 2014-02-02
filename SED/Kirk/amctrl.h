@@ -2,40 +2,39 @@
 #define AMCTRL_H
 
 typedef struct {
-	int type;
-	u8 key[16];
-	u8 pad[16];
-	int pad_size;
+    int type;
+    u8 key[16];
+    u8 pad[16];
+    int pad_size;
 } MAC_KEY;
 
-typedef struct
-{
-	u32 type;
-	u32 seed;
-	u8 key[16];
+typedef struct {
+    u32 type;
+    u32 seed;
+    u8 key[16];
 } CIPHER_KEY;
 
 typedef struct {
-	u8  vkey[16];   // key to decrypt PGD header
-	u8  dkey[16];   // key to decrypt PGD data
+    u8  vkey[16];   // key to decrypt PGD header
+    u8  dkey[16];   // key to decrypt PGD data
 
-	u32 open_flag;
-	u32 key_index;
-	u32 drm_type;
-	u32 mac_type;
-	u32 cipher_type;
+    u32 open_flag;
+    u32 key_index;
+    u32 drm_type;
+    u32 mac_type;
+    u32 cipher_type;
 
-	u32 data_size;
-	u32 align_size;
-	u32 block_size;
-	u32 block_nr;
-	u32 data_offset;
-	u32 table_offset;
+    u32 data_size;
+    u32 align_size;
+    u32 block_size;
+    u32 block_nr;
+    u32 data_offset;
+    u32 table_offset;
 
-	u8  *block_buf;
-	u32 current_block;
-	u32 file_offset;
-}PGD_DESC;
+    u8  *block_buf;
+    u32 current_block;
+    u32 file_offset;
+} PGD_DESC;
 
 
 // type:
