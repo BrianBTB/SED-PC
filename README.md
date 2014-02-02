@@ -22,5 +22,5 @@ Type 'make' (without quotes) into the terminal in the SED directory.
 
 
 Licence
--------
+=======
 SED-PC is under the GPL v2 licence, which can be found in the LICENCE file
