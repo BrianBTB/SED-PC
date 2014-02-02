@@ -10,8 +10,16 @@ Credits To:
 	-Codestation for porting to linux
 
 Building
---------
+========
+Windows
+-------
+
 Simply open the solution in Visual Studio 2012 or later and build :)
+
+Linux
+-----
+Type 'make' (without quotes) into the terminal in the SED directory.
+
 
 Licence
 -------
