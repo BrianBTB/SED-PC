@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Kirk">
+      <UniqueIdentifier>{98636cd3-b643-46dd-8db9-2628cb873a0a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sceChnnlsv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirk\AES.c">
+      <Filter>Kirk</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirk\amctrl.c">
+      <Filter>Kirk</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirk\bn.c">
+      <Filter>Kirk</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirk\ec.c">
+      <Filter>Kirk</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirk\kirk_engine.c">
+      <Filter>Kirk</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirk\SHA1.c">
+      <Filter>Kirk</Filter>
+    </ClCompile>
+    <ClCompile Include="decrypt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="encrypt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="psf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MemMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sceChnnlsv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sceKernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Kirk\AES.h">
+      <Filter>Kirk</Filter>
+    </ClInclude>
+    <ClInclude Include="Kirk\amctrl.h">
+      <Filter>Kirk</Filter>
+    </ClInclude>
+    <ClInclude Include="Kirk\kirk_engine.h">
+      <Filter>Kirk</Filter>
+    </ClInclude>
+    <ClInclude Include="Kirk\SHA1.h">
+      <Filter>Kirk</Filter>
+    </ClInclude>
+    <ClInclude Include="sed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="psf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MemMapX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MemMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
