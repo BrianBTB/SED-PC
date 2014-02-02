@@ -1,15 +1,15 @@
 /*
 	Draan proudly presents:
-	
+
 	With huge help from community:
 	coyotebean, Davee, hitchhikr, kgsws, liquidzigong, Mathieulh, Proxima, SilverSpring
-	
+
 	******************** KIRK-ENGINE ********************
 	An Open-Source implementation of KIRK (PSP crypto engine) algorithms and keys.
 	Includes also additional routines for hash forging.
-	
+
 	********************
-	
+
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
@@ -51,88 +51,78 @@ typedef unsigned int u32;
 #define KIRK_INVALID_SIZE 0xF
 #define KIRK_DATA_SIZE_ZERO 0x10
 
-typedef struct
-{
-	int mode;    //0
-	int unk_4;   //4
-	int unk_8;   //8
-	int keyseed; //C
-	int data_size;   //10
+typedef struct {
+    int mode;    //0
+    int unk_4;   //4
+    int unk_8;   //8
+    int keyseed; //C
+    int data_size;   //10
 } KIRK_AES128CBC_HEADER; //0x14
 
-typedef struct
-{
-	u8  AES_key[16];            //0
-	u8  CMAC_key[16];           //10
-	u8  CMAC_header_hash[16];   //20
-	u8  CMAC_data_hash[16];     //30
-	u8  unused[32];             //40
-	u32 mode;                   //60
-	u8  ecdsa_hash;             //64
-	u8  unk3[11];               //65
-	u32 data_size;              //70
-	u32 data_offset;            //74  
-	u8  unk4[8];                //78
-	u8  unk5[16];               //80
+typedef struct {
+    u8  AES_key[16];            //0
+    u8  CMAC_key[16];           //10
+    u8  CMAC_header_hash[16];   //20
+    u8  CMAC_data_hash[16];     //30
+    u8  unused[32];             //40
+    u32 mode;                   //60
+    u8  ecdsa_hash;             //64
+    u8  unk3[11];               //65
+    u32 data_size;              //70
+    u32 data_offset;            //74
+    u8  unk4[8];                //78
+    u8  unk5[16];               //80
 } KIRK_CMD1_HEADER; //0x90
 
-typedef struct
-{
-	u8  AES_key[16];            //0
-	u8  header_sig_r[20];           //10
-	u8  header_sig_s[20];   //24
-	u8  data_sig_r[20];     //38
-	u8  data_sig_s[20];     //4C
-	u32 mode;                   //60
-	u8  ecdsa_hash;             //64
-	u8  unk3[11];               //65
-	u32 data_size;              //70
-	u32 data_offset;            //74  
-	u8  unk4[8];                //78
-	u8  unk5[16];               //80
+typedef struct {
+    u8  AES_key[16];            //0
+    u8  header_sig_r[20];           //10
+    u8  header_sig_s[20];   //24
+    u8  data_sig_r[20];     //38
+    u8  data_sig_s[20];     //4C
+    u32 mode;                   //60
+    u8  ecdsa_hash;             //64
+    u8  unk3[11];               //65
+    u32 data_size;              //70
+    u32 data_offset;            //74
+    u8  unk4[8];                //78
+    u8  unk5[16];               //80
 } KIRK_CMD1_ECDSA_HEADER; //0x90
 
 
-typedef struct
-{
-	u8 r[0x14];
-	u8 s[0x14];
+typedef struct {
+    u8 r[0x14];
+    u8 s[0x14];
 } ECDSA_SIG; //0x28
-typedef struct
-{
-	u8 x[0x14];
-	u8 y[0x14];
+typedef struct {
+    u8 x[0x14];
+    u8 y[0x14];
 } ECDSA_POINT; //0x28
 
-typedef struct
-{
-    u32 data_size;             //0     
+typedef struct {
+    u32 data_size;             //0
 } KIRK_SHA1_HEADER;            //4
 
-typedef struct
-{
-	u8 private_key[0x14];
-	ECDSA_POINT public_key;
+typedef struct {
+    u8 private_key[0x14];
+    ECDSA_POINT public_key;
 } KIRK_CMD12_BUFFER;
 
-typedef struct
-{
-	u8 multiplier[0x14];
-	ECDSA_POINT public_key;
+typedef struct {
+    u8 multiplier[0x14];
+    ECDSA_POINT public_key;
 } KIRK_CMD13_BUFFER;
 
 
-typedef struct
-{
-	u8 enc_private[0x20];					//0
-	u8 message_hash[0x14];				//20
+typedef struct {
+    u8 enc_private[0x20];					//0
+    u8 message_hash[0x14];				//20
 } KIRK_CMD16_BUFFER;//0x34
 
-typedef struct
-{
-	ECDSA_POINT public_key;					//0
-	u8 message_hash[0x14];				//28
-	ECDSA_SIG signature;					//3C
+typedef struct {
+    ECDSA_POINT public_key;					//0
+    u8 message_hash[0x14];				//28
+    ECDSA_SIG signature;					//3C
 } KIRK_CMD17_BUFFER;//0x64
 
 //mode passed to sceUtilsBufferCopyWithRange
@@ -179,7 +169,7 @@ typedef struct
       0x07: Decrypt Operation (inverse of 0x04)
       0x08: Decrypt Operation (inverse of 0x05)
       0x09: Decrypt Operation (inverse of 0x06)
-	  
+
       // Sig Gens
       0x0A: Private Signature Check (checks for private SCE sig)
       0x0B: SHA1 Hash
