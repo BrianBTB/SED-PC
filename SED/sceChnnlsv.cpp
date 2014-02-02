@@ -19,7 +19,7 @@
 #include "MemMap.h"
 extern "C"
 {
-#include "Kirk\kirk_engine.h"
+#include "Kirk/kirk_engine.h"
 }
 
 u8 dataBuf[2048+20];

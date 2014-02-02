@@ -4,10 +4,16 @@
 #include "ErrorCodes.h"
 #include <malloc.h>
 #include <stdio.h>
-
-#ifdef _WIN32
-void* memalign(size_t size, size_t alignment);
-#endif
+#include <stdlib.h>
+ 
+ #ifdef _WIN32
+#define aligned_alloc _aligned_malloc
+#define aligned_free _aligned_free
+#define strcasecmp _stricmp
+#define strncasecmp _strnicmp
+#else
+#define aligned_free free
+ #endif
 
 class Savedata
 {
