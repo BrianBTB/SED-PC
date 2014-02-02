@@ -13,23 +13,23 @@ void CheckAndShowError(int errCode)
     if(errCode >= 2) {
         return;    //No error
     } else if(errCode == FILE_IO_ERROR) {
-        cout<<"File IO Error - Check the supplied paths and their permissions";
+		cout<<FILE_IO_MSG;
     } else if(errCode == MEMORY_ERROR) {
-        cout<<"Memory Error - Something went wrong while attempting to allocate memory";
+		cout<<MEMORY_MSG;
     } else if(errCode == SFO_ERROR) {
-        cout<<"SFO Error - Make sure that the SFO file is correct";
+		cout<<SFO_MSG;
     } else if(errCode == INVALID_SFO_ERROR) {
-        cout<<"SFO Error - The SFO file is invalid";
+		cout<<INVALID_SFO_MSG;
     } else if(errCode == HASH_ERROR) {
-        cout<<"Hash Error - Something went wrong with hashing";
+		cout<<HASH_MSG;
     } else if(errCode <= DECRYPT_ERROR && errCode > ENCRYPT_ERROR) {
-        cout<<"Decrypt Error - Something went wrong while decrypting \n Code: "<<errCode;
+		cout<<DECRYPT_MSG;
     } else if(errCode <= ENCRYPT_ERROR) {
-        cout<<"Encrypt Error - Something went wrong while encrypting \n Code: "<<errCode;
+		cout<<ENCRYPT_MSG;
     } else if(errCode == INVALID_ARGS) {
-        cout<<"Invalid Arguments";
+		cout<<INVALID_MSG;
     } else {
-        cout<<"Unknown Error - Code "<<errCode;
+		cout<<UNKN_MSG;
     }
     cout<<"\nReport any issues at https://github.com/hgoel0974/SED-PC/issues";
     cout<<"\n\n";
