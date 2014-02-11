@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
 #include "sceChnnlsv.h"
 
 static inline int align16(unsigned int v)

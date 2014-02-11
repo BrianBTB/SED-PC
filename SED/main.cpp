@@ -3,6 +3,10 @@
 #include "MemMap.h"
 #include <iostream>
 
+#ifdef __APPLE__
+    #include  <libgen.h> //basename
+#endif
+
 //#define DEBUG
 
 using namespace std;
