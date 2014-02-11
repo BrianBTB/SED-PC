@@ -2,18 +2,21 @@
 
 #include "sceChnnlsv.h"
 #include "ErrorCodes.h"
-#include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
  
- #ifdef _WIN32
-#define aligned_alloc _aligned_malloc
-#define aligned_free _aligned_free
-#define strcasecmp _stricmp
-#define strncasecmp _strnicmp
+#if defined(_WIN32)
+    #define aligned_alloc _aligned_malloc
+    #define aligned_free _aligned_free
+    #define strcasecmp _stricmp
+    #define strncasecmp _strnicmp
+#elif defined(__APPLE__)
+    // http://stackoverflow.com/questions/196329/osx-lacks-memalign
+    #define aligned_alloc(a,size) malloc(size)
+    #define aligned_free free
 #else
-#define aligned_free free
- #endif
+    #define aligned_free free
+#endif
 
 class Savedata
 {

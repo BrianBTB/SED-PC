@@ -16,7 +16,7 @@
 // https://github.com/hrydgard/ppsspp and http://www.ppsspp.org/.
 
 #pragma once
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 #include "sceKernel.h"
 
