@@ -66,7 +66,7 @@ int update_hashes(unsigned char *data,
 
     /* Compute 11D0 hash over entire file */
     if ((ret = build_hash(filehash, data, len, alignedLen,
-                          (encryptmode & 2) ? 4 :  2, NULL)) < 0) {	// Not sure about "2"
+                          (encryptmode & 4) ? 6 : (encryptmode & 2) ? 4 :  2, NULL)) < 0) {	// Not sure about "2"
         return ret - 400;
     }
 
@@ -75,13 +75,13 @@ int update_hashes(unsigned char *data,
     *savedata_params |= 0x01;
 
     /* If new encryption mode, compute and insert the 1220 hash. */
-    if (encryptmode & 2) {
+    if (encryptmode /*& 2*/) {
 
         /* Enable the hash bit first */
-        *savedata_params |= 0x20;
+        *savedata_params |= encryptmode<<4;//0x20;
 
         if ((ret = build_hash(filehash, data, len, alignedLen,
-                              3, 0)) < 0) {
+                              (encryptmode & 4) ? 5 : 3, 0)) < 0) {
             return ret - 500;
         }
         memcpy(savedata_params + 0x70, filehash, 0x10);
