@@ -195,7 +195,7 @@ int Savedata::Encrypt(const char *plaintext_filename,
 
     if ((retval = update_hashes(paramsfo, 0x1330,
                                 data_filename, hash,
-                                gamekey ? 3 : 1)) < 0) {
+                                paramsfo[0x11b0]>>4/*gamekey ? 3 : 1*/)) < 0) {
         retval += HASH_ERROR;
         goto out;
     }
