@@ -6,7 +6,7 @@
 #include <stdlib.h>
  
 #if defined(_WIN32)
-    #define aligned_alloc _aligned_malloc
+    #define aligned_alloc(a,size) _aligned_malloc(size,a)
     #define aligned_free _aligned_free
     #define strcasecmp _stricmp
     #define strncasecmp _strnicmp
