@@ -1,0 +1,6 @@
+# objects
+*.o
+
+# executable
+psp-sed
+

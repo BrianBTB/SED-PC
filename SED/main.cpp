@@ -67,7 +67,7 @@ int Encrypter(char *argv[])
     unsigned char gameKey[0x11] = {" "};
 
     FILE* key = fopen(argv[5], "rb");
-    if(key > 0) {
+    if(key > (void*)0) {
         fread((void*)gameKey, 1, 0x10, key);
         fclose(key);
     } else {
@@ -93,7 +93,7 @@ int Decrypter(char *argv[])
 {
     unsigned char gameKey[0x11] = {" "};
     FILE* key = fopen(argv[4], "rb");
-    if(key > 0) {
+    if(key > (void*)0) {
         fread((void*)gameKey, 1, 0x10, key);
         fclose(key);
     } else {
